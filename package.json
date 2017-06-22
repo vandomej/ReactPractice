@@ -1,0 +1,25 @@
+{
+  "name": "todolisttracker",
+  "version": "1.0.0",
+  "description": "Used to track my todos and my if then plan.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo ''\u001b[DNo test command is set up currently';",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vandomej/ReactPractice.git"
+  },
+  "keywords": [
+    "todo",
+    "list",
+    "tracker"
+  ],
+  "author": "Jacob VanDomelen'",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vandomej/ReactPractice/issues"
+  },
+  "homepage": "https://github.com/vandomej/ReactPractice#readme"
+}
