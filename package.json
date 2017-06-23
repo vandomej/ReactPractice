@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "Used to track my todos and my if then plan.",
   "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
   "scripts": {
-    "test": "echo ''\u001b[DNo test command is set up currently';",
+    "test": "echo 'No test command is set up currently';",
     "start": "node server.js"
   },
   "repository": {
