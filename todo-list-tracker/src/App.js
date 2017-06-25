@@ -223,14 +223,68 @@ class Counterlist extends Component {
   render() {
     return (
       <div>
+        <h2>Correct Counters</h2>
         <CorrectCounter increment={(this.state.increment % 2) + 1} />
         <CorrectCounter increment={(this.state.increment % 4) + 1} />
         <CorrectCounter increment={(this.state.increment % 6) + 1} />
         <br />
+        <h2>Incorrect Counters</h2>
         <IncorrectCounter increment={(this.state.increment % 1) + 1} />
         <IncorrectCounter increment={(this.state.increment % 3) + 1} />
         <IncorrectCounter increment={(this.state.increment % 5) + 1} />
       </div>
+    );
+  }
+}
+
+//Basic ToggleButton
+class ToggleButton extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isToggleOn: false
+    };
+
+    //The bind function is used so that you can bind a value to the keyword
+    //'this'. Meaning that when you use .bind on a function, the argument that
+    //you pass into .bind, gets set to the this keyword. In addition to this,
+    //You can pass in other values and they will take over the existing
+    //in order.
+    this.handleClick = this.handleClick.bind(this, 3);
+  }
+
+  //There are different types of anonymous functions, not types
+  //but different ways to express the same anonymous functions
+
+  //Typical function that you would think of, defining the arguments
+  //in a parameter list and containing a regular function body
+  fun1 = (arg1, arg2, arg3) => {
+    //Statements
+    var returnValue = arg1 + arg2 + arg3;
+    return returnValue;
+  };
+
+  //If the only statement in your function is a return statement, then you
+  //can change the curly braces to parenthesis and omit the return statement
+  fun2 = (arg1, arg2, arg3) => (
+    arg1 + arg2 + arg3
+  );
+
+  //Lastly, if you only have one argument, then you can omit the parenthesis
+  //around the argument.
+  fun3 = arg => (arg + 2);
+
+  handleClick(increment) {
+    this.setState((prevState) => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
     );
   }
 }
@@ -243,6 +297,7 @@ class App extends Component {
         {element}
         <CurrentTime name={user[0].firstName}/>
         <Counterlist />
+        <ToggleButton />
       </div>
     );
   }
