@@ -251,6 +251,12 @@ class ToggleButton extends Component {
     //You can pass in other values and they will take over the existing
     //in order.
     this.handleClick = this.handleClick.bind(this, 3);
+
+    //If you don't want to bind every function that you create in a class
+    //then you can define it this way.
+    //handleClick = increment => {}
+    //Apparently this syntax is experimental
+    //I would reccomend that you just bind it for now.
   }
 
   //There are different types of anonymous functions, not types
