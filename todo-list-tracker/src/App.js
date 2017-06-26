@@ -295,12 +295,65 @@ class ToggleButton extends Component {
   }
 }
 
+function LoginButton(props) {
+  return (
+    <button onClick={props.OnClick}>
+      Login
+    </button>
+  );
+}
+
+function LogoutButton(props) {
+  return (
+    <button onClick={props.OnClick}>
+      Logout
+    </button>
+  );
+}
+
+class LoginControl extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handlelogoutClick = this.handlelogoutClick.bind(this);
+    this.state = {isLoggedin: false};
+  }
+
+  handleLoginClick() {
+    this.setState({isLoggedin: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+
+    let button = null;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+
+    return (
+      <div>
+        {button}
+      </div>
+    );
+  }
+}
+
+
+
 //Basic overarching class
 class App extends Component {
   render() {
     return (
       <div>
         {element}
+        <LoginControl />
         <CurrentTime name={user[0].firstName}/>
         <Counterlist />
         <ToggleButton />
