@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Extension from './components/Extension';
 
 const user = [
   {
@@ -14,6 +14,10 @@ const user = [
   {
     firstName: 'Nathan',
     lastName: 'Tan'
+  },
+  {
+    firstName: 'Guy',
+    lastname: 'Person'
   }
 ];
 
@@ -297,7 +301,7 @@ class ToggleButton extends Component {
 
 function LoginButton(props) {
   return (
-    <button onClick={props.OnClick}>
+    <button onClick={props.onClick}>
       Login
     </button>
   );
@@ -305,7 +309,7 @@ function LoginButton(props) {
 
 function LogoutButton(props) {
   return (
-    <button onClick={props.OnClick}>
+    <button onClick={props.onClick}>
       Logout
     </button>
   );
@@ -315,15 +319,17 @@ class LoginControl extends Component {
   constructor(props) {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.handlelogoutClick = this.handlelogoutClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
     this.state = {isLoggedin: false};
   }
 
   handleLoginClick() {
+    console.log('in login click');
     this.setState({isLoggedin: true});
   }
 
   handleLogoutClick() {
+    console.log('in logout click');
     this.setState({isLoggedIn: false});
   }
 
@@ -345,18 +351,114 @@ class LoginControl extends Component {
   }
 }
 
+function Mailbox(props) {
+  const unreadMessages = props.unreadMessages;
+  return (
+    <div>
+      {/*You can use the && operator to conditionally render components*/}
+      {unreadMessages.length > 0 &&
+        <h2>
+          You have {unreadMessages.length} unread messages.
+        </h2>
+      }
 
+      {/*Or you can use the ? operator*/}
+      You have {unreadMessages.length > 0 ? unreadMessages.length : 'no'} unread messages
+    </div>
+  )
+}
+
+//If you don't want a component to render, you can return null istead of the render output
+function ReturnNull(props) {
+  if (!props.render) {
+    return null;
+  } else {
+    return (
+      <div>
+        The null component is rendering.
+      </div>
+    );
+  }
+}
+
+function ConditionalRendering() {
+  return (
+    <div>
+        <Mailbox unreadMessages={[]} />
+        <Mailbox unreadMessages={[1,2,3,4]} />
+        First: <br />
+        <ReturnNull render={false}/>
+        Second: <br />
+        <ReturnNull render={true}/>
+      </div>
+  );
+}
+
+//Handling Multiple Inputs
+class Reservation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isGoing: true,
+      numberOfGuests: 2
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  //In this class, we have both inputs calling this function
+  //in their onChange attributes. In order to handle the value
+  //binding, both of the input tags provide attributes that are
+  //then binded to the event.target object. That is why we can
+  //access the values of type, checked, and name.
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    }); 
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="numberOfGuests"
+            type="number"
+            value={this.state.numberOfGuests}
+            onChange={this.handleInputChange} />
+        </label>
+      </form>
+    );
+  }
+}
 
 //Basic overarching class
 class App extends Component {
   render() {
     return (
-      <div>
+      <div style={{margin: '25px'}}>
         {element}
         <LoginControl />
         <CurrentTime name={user[0].firstName}/>
         <Counterlist />
         <ToggleButton />
+        <ConditionalRendering />
+        <Reservation />
+        <Extension />
       </div>
     );
   }
